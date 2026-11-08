@@ -2908,10 +2908,13 @@ main h2, main h3, main p, .w-meta, .tl-date, .fig .c, .index-list em,
   var hoverable = window.matchMedia('(hover: hover)').matches;
 
   /* ---------------- 载入 ---------------- */
-  window.addEventListener('load', function(){
-    setTimeout(function(){
-      document.getElementById('loader').classList.add('done');
-    }, 1000);
+  function hideLoader(){
+    var l = document.getElementById('loader');
+    if (l) l.classList.add('done');
+  }
+  if (document.readyState === 'complete') hideLoader();
+  else document.addEventListener('DOMContentLoaded', function(){
+    setTimeout(hideLoader, 700);
   });
 
   /* 载入百分比 */
@@ -3712,6 +3715,8 @@ main h2, main h3, main p, .w-meta, .tl-date, .fig .c, .index-list em,
       entered = true;
       portal.classList.add('opening');
       document.body.classList.add('entered');
+      var l = document.getElementById('loader');
+      if (l) l.classList.add('done');
       document.body.classList.remove('portal-open');
       setTimeout(function(){ portal.classList.add('gone'); }, 1500);
     }
